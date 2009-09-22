@@ -1,0 +1,31 @@
+= CouchLog
+
+CouchLog is a Ruby on Rails plugin that stores all of your app's log data in CouchDB.
+
+== Warning
+
+This plugin is currently under development.
+
+== Requirements
+
+Rails >= 2.3.2
+CouchDB >= 0.9.1
+
+
+== Helpful Links
+
+* <b>Documentation:</b> http://github.com/rdempsey/CouchLog
+* <b>Repository:</b> http://github.com/rdempsey/CouchLog/tree/master
+
+* <b>CouchDB:</b> http://couchdb.apache.org/
+* <b>CouchDBX:</b> http://janl.github.com/couchdbx/
+
+== Install & Use
+
+To Do
+
+== Detailed Setup Tutorial
+
+To Do
+
+Copyright (c) 2009 {Robert Dempsey}[http://www.adsdevshop.com], released under the MIT license
