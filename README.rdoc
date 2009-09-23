@@ -9,23 +9,49 @@ This plugin is currently under development.
 == Requirements
 
 Rails >= 2.3.2
+
 CouchDB >= 0.9.1
 
 
 == Helpful Links
 
-* <b>Documentation:</b> http://github.com/rdempsey/CouchLog
+* <b>Documentation:</b> http://rdoc.info/projects/rdempsey/CouchLog
 * <b>Repository:</b> http://github.com/rdempsey/CouchLog/tree/master
-
 * <b>CouchDB:</b> http://couchdb.apache.org/
 * <b>CouchDBX:</b> http://janl.github.com/couchdbx/
 
 == Install & Use
 
-To Do
+Install CouchDB on a server that your application has access to.
 
-== Detailed Setup Tutorial
+Install the current version of the plugin:
 
-To Do
+  script/plugin install git://github.com/rdempsey/couchlog.git
+  
+Install the couchrest gem
 
-Copyright (c) 2009 {Robert Dempsey}[http://www.adsdevshop.com], released under the MIT license
+Require CouchLog in your config before the initializer:
+
+  # config/environment.rb
+  require 'couch_log'
+  
+Set the level of logging that you want for your app inside of the initializer:
+
+  config.log_level = ENV['RAILS_ENV']=='production' ?  
+                                 ActiveSupport::BufferedLogger::Severity::INFO :
+                                 ActiveSupport::BufferedLogger::Severity::DEBUG
+                                 
+Just below config.log_level, Initialize the plugin:
+
+  config.logger = CouchLog.new(config.log_path, config.log_level)
+  
+Set the location of the database in the config file
+
+  #config/couchlog.yml
+  server = YOUR_SERVER_HERE 
+
+== Copyright & License
+
+Copyright (c) 2009 {Robert Dempsey}[http://www.adsdevshop.com], released under the MIT license.
+
+Thanks to the code provided by bikethetam on the {UbuntuSolutions}[http://www.ubuntusolutions.org/2009/08/custom-logger-in-rails.html] blog
