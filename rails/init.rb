@@ -1,0 +1,1 @@
+require "couch_log"
