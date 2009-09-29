@@ -1,14 +1,14 @@
 development:
-	database: couchlog_development
+  couchdb: couchlog_development
   host: 127.0.0.1
-  port: 5432
- 
+  port: 5984
+
 test:
-	database: couchlog_test
+  couchdb: couchlog_test
   host: 127.0.0.1
   port: 5432
 
 production:
-	database: couchlog_production
+  couchdb:  couchlog_production
   host: www.example.com
   port: 5432

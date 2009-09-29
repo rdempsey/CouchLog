@@ -28,7 +28,10 @@ class CouchLog < ActiveSupport::BufferedLogger
   
   # load config/couchlog.yml
   def load_configuration
-    
+    path =  "#{RAILS_ROOT}/config/couchlog.yml"
+    return unless File.exists?(path)
+
+    @config = YAML::load(File.open("#{RAILS_ROOT}/config/couchlog.yml")) [RAILS_ENV]
   end
    
   public  
@@ -36,18 +39,15 @@ class CouchLog < ActiveSupport::BufferedLogger
   # monkey patch the CustomLogger add method so that  
   # we can format the log messages the way we want  
   def add(severity, message = nil, progname = nil, &block)  
-    path = "#{RAILS_ROOT}/config/couchlog.yml"
-    return unless File.exists?(path)
-    
-    conf = YAML::load(ERB.new(IO.read(path)).result)[RAILS_ENV]
-    
+    load_configuration
+
     return if @level > severity  
     message = (message || (block && block.call) || progname).to_s  
 
     # Log everything to CouchDB
     # Don't show anything on the command or in the log files
     # Format = { DateTime, Severity, Message }
-    db = CouchRest.database!("http://#{conf[:host]}:#{conf[:port]}/#{conf[:database]}")
+    db = CouchRest.database!("http://#{@config['host']}:#{@config['port']}/#{@config['couchdb']}")
     message = db.save_doc({
       "DateTime" => Time.now.strftime("%m/%d/%Y %H:%M:%S"),
       "Severity" => severity_string(severity),
